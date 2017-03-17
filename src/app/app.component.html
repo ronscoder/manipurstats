@@ -1,3 +1,28 @@
-<h1>
-  {{title}}
-</h1>
+<div class="topbar" id="topbar">
+    <div class="menu">
+        <button class="menubtn" *ngIf="false">Menu</button>
+        <div class="menu-items">
+            <a href="#" [class.active]="switch=='music'" (click)="switchComponent('music')">🎧 Music Chart</a>
+            <a href="#" class="disabled" title="Not available now">👤 Personal Management</a>
+        </div>
+    </div>
+    <div style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: whitesmoke; font-size: 2em; text-shadow: 1px 1px darkred">
+        <span class="sigma">&Sigma;</span> Manipur Stats
+    </div>
+</div>
+<div class="content">
+    <videos-component *ngIf="switch == 'music'">
+    </videos-component>
+    <!--<videoComp [video]=video>
+</videoComp>-->
+    <app-home *ngIf="switch=='home'">
+    </app-home>
+</div>
+<footer>
+    <div style="column-count: 1; color: dimgray; border-top: 1px solid darkblue">
+        <small>
+        Developed by <span class="sigma">&Sigma;</span> Sigma Desk.
+    </small>
+    </div>
+</footer>

@@ -1,0 +1,77 @@
+<h2>Channels</h2>
+<div class="admin" *ngIf="admin">
+  <h2>Participating channels</h2>
+  <form #addChannelForm="ngForm" (ngSubmit)="getChannel(addChannelForm)">
+    <input type="text" placeholder="Add Channel Name (Username)" ngModel name="channelName">
+    <input type="text" placeholder="Add Channel ID" ngModel name="channelId">
+    <input type="submit" value="Add">
+  </form>
+</div>
+
+<div id="channel_details">
+  <div *ngIf="channelToAdd != null">
+    <img src="{{channelToAdd?.items[0].snippet.thumbnails.default.url}}"><br>
+    <a href="https://www.youtube.com/{{channelToAdd?.items[0]?.snippet.customUrl}}" target="_blank">{{channelToAdd?.items[0]?.snippet.title}}</a>
+    <span class="subtext">{{channelToAdd?.items[0]?.id}}</span>
+    <button (click)="addThisChannel()" [disabled]="disableAdd">{{addBtnText}}</button>
+  </div>
+  <div *ngIf="channelToAdd == null">
+    <p class="status failed" *ngIf="status">
+      {{status}}
+    </p>
+  </div>
+</div>
+<div style="display: flex">
+  <div style="display: flex; flex-direction: column">
+    <!-- Channel list -->
+    <div class="items" *ngIf="channels.length > 0">
+      <ul>
+        <li *ngFor="let channel of channels">
+          <div class="item" (click)="getPlaylists(channel.items[0].id)">
+            <img src="{{channel?.items[0].snippet.thumbnails.default.url}}"><br>
+            <a href="https://www.youtube.com/{{channel?.items[0]?.snippet.customUrl}}" target="_blank">{{channel?.items[0]?.snippet.title}}</a>
+            <span class="subtext">{{channel?.items[0]?.id}}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- channel playlists -->
+  <div *ngIf="playlists.items?.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Playlist name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let playlist of playlists.items">
+          <td><img src="{{playlist?.snippet?.thumbnails.default.url}}"> {{playlist?.snippet?.title}}
+            <span class="subtext">{{playlist?.id}}</span></td>
+          <td><button (click)="addPlaylist(playlist.id)" [disabled]="checkPlaylistIDExists(playlist.id)">Add</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button [disabled]="playlists.prevPageToken == null" (click)="getNextPlaylists(playlists.prevPageToken)">Previous</button>
+    <button [disabled]="playlists.nextPageToken == null" (click)="getNextPlaylists(playlists.nextPageToken)">Next</button>
+  </div>
+</div>
+
+
+<!-- Playlists to be selected -->
+<!--table>
+  <thead>
+    <tr>
+      <th>Playlist name</th>
+      <th>Channel Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let playlist of playlists">
+      <td><img src="{{playlist?.snippet?.thumbnails.default.url}}"> {{playlist?.snippet?.title}}
+        <span class="subtext">{{playlist?.id}}</span></td>
+      <td>{{playlist?.snippet?.channelTitle}}</td>
+      <td><button (click)="addPlaylist(playlist.id)" [disabled]="checkPlaylistIDExists(playlist?.id)">Add</button></td>
+    </tr>
+  </tbody>
+</table -->

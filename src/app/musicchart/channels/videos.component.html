@@ -1,0 +1,29 @@
+<header>
+    <h1 class="heading">Manipuri Youtube Music Videos Chart</h1>
+</header>
+<section>
+    <h1>Manipuri Youtube Music Videos - Top Viewed</h1>
+    <div class="action">
+        <div><input type="radio" name="week" (click)="setPublishDate('alltime')" id="r1" disabled><label for="r1"> All time</label></div>
+        <div><input type="radio" name="week" (click)="setPublishDate('week1')" checked id="r2"><label for="r2"> Since last week</label></div>
+        <div><input type="radio" name="week" (click)="setPublishDate('month1')" id="r3" disabled><label for="r3"> This month</label></div>
+        <div><input type="radio" name="week" (click)="setPublishDate('year1')" id="r4" disabled><label for="r4"> This year</label></div>
+    </div>
+    <table class="snaplist">
+        <tr *ngFor="let video of videoList; let i = index">
+            <td class="ranking">{{i+1}}</td>
+            <td>
+                <videoComp [video]=video (stats)="stats($event, video)" [getStat]="true"></videoComp>
+            </td>
+            <td>
+                <div class="count">{{video.viewCount | number }} <small class="subtext">views</small></div>
+            </td>
+        </tr>
+    </table>
+</section>
+<section *ngIf="false">
+    <h1>Manipuri Youtube Music Videos - New Uploads</h1>
+    <div id="table_div"></div>
+</section>
+
+<musicchannels *ngIf="user=='rons.ubm@gmail.com'"></musicchannels>

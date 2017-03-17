@@ -1,0 +1,12 @@
+body{
+    margin: auto;
+    background-color: red;
+}
+div{
+    border: 1px red dotted;
+}
+@media screen and (max-width:414px){
+    body{
+        background-color: blue;
+    }
+}

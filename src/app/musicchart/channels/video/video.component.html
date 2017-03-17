@@ -1,0 +1,17 @@
+<div class="videoComp" (click)="loadPlayer()">
+  <img src="{{video.snippet?.thumbnails.default.url}}">
+  <div class="item-title">{{video.snippet.title}}<br>
+    <div class="item-name"><strong>{{video.snippet.channelTitle}}</strong></div>
+  </div>
+
+  <div class="count">{{viewCount | number }} <small class="subtext">views</small></div>
+</div>
+<div class="player" *ngIf="play" style="display: flex; flex-direction: column">
+  <span style="float: right; color: darkgrey; font-weight: bold; font-size: 2em; cursor: pointer; margin: 1em 2em 0 0" (click)="closePlayer()">X</span>
+
+  <!-- 1. The <iframe> (and video player) will replace this <div> tag. 
+    Dynamatically creating an DIV with id=player
+    -->
+  <iframe id="player" type="text/html" width="640" height="390" [src]="playVideoURL"
+    frameborder="0"></iframe>
+</div>
